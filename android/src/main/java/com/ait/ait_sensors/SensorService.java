@@ -48,10 +48,33 @@ public class SensorService {
         return false;
     }
 
+    public static boolean destroyAccelerometer(SensorManager sensorManager) {
+        sensorManager.unregisterListener(accelerometerListener);
+        return true;
+    }
+
+    public static boolean destroyUserAccelerometer(SensorManager sensorManager) {
+        sensorManager.unregisterListener(userAccelerometerListener);
+        return true;
+    }
+
+    public static boolean destroyGyroscope(SensorManager sensorManager) {
+        sensorManager.unregisterListener(gyroscopeListener);
+        return true;
+    }
+
+    public static boolean destroyLight(SensorManager sensorManager) {
+        sensorManager.unregisterListener(lightListener);
+        return true;
+    }
+
     private static final SensorEventListener accelerometerListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
-
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                String value = String.valueOf(sensorEvent.values[0]) + ',' + String.valueOf(sensorEvent.values[1]) + ',' + String.valueOf(sensorEvent.values[2]);
+                AitSensorsPlugin.accelerometerStream.add(value);
+            }
         }
 
         @Override
@@ -63,7 +86,10 @@ public class SensorService {
     private static final SensorEventListener userAccelerometerListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
-
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
+                String value = String.valueOf(sensorEvent.values[0]) + ',' + String.valueOf(sensorEvent.values[1]) + ',' + String.valueOf(sensorEvent.values[2]);
+                AitSensorsPlugin.userAccelerometerStream.add(value);
+            }
         }
 
         @Override
@@ -75,7 +101,10 @@ public class SensorService {
     private static final SensorEventListener gyroscopeListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
-
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
+                String value = String.valueOf(sensorEvent.values[0]) + ',' + String.valueOf(sensorEvent.values[1]) + ',' + String.valueOf(sensorEvent.values[2]);
+                AitSensorsPlugin.gyroscopeStream.add(value);
+            }
         }
 
         @Override
@@ -87,7 +116,10 @@ public class SensorService {
     private static final SensorEventListener lightListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
-
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
+                String value = String.valueOf(sensorEvent.values[0]);
+                AitSensorsPlugin.lightStream.add(value);
+            }
         }
 
         @Override
