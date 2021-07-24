@@ -49,32 +49,40 @@ public class AitSensorsPlugin implements FlutterPlugin, MethodCallHandler {
       String sensor = call.argument("sensor");
       switch (sensor) {
         case "accelerometer":
-          sensorService.initAccelerometer();
+          if (sensorService.initAccelerometer()) result.success("OK");
+          else result.error("FAIL");
           break;
         case "userAccelerometer":
-          sensorService.initUserAccelerometer();
+          if (sensorService.initUserAccelerometer()) result.success("OK");
+          else result.error("FAIL");
           break;
         case "gyroscope":
-          sensorService.initGyroscope();
+          if (sensorService.initGyroscope()) result.success("OK");
+          else result.error("FAIL");
           break;
         case "light":
-          sensorService.initLight();
+          if (sensorService.initLight()) result.success("OK");
+          else result.error("FAIL");
           break;
       }
     } else if (call.method.equals("destroySensors")) {
       String sensor = call.argument("sensor");
       switch (sensor) {
         case "accelerometer":
-          sensorService.destroyAccelerometer();
+          if (sensorService.destroyAccelerometer()) result.success("OK");
+          else result.error("FAIL");
           break;
         case "userAccelerometer":
-          sensorService.destroyUserAccelerometer();
+          if (sensorService.destroyUserAccelerometer()) result.success("OK");
+          else result.error("FAIL");
           break;
         case "gyroscope":
-          sensorService.destroyGyroscope();
+          if (sensorService.destroyGyroscope()) result.success("OK");
+          else result.error("FAIL");
           break;
         case "light":
-          sensorService.destroyLight();
+          if (sensorService.destroyLight()) result.success("OK");
+          else result.error("FAIL");
           break;
       }
     } else {
